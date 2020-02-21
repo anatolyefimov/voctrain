@@ -6,7 +6,6 @@ from flaskr.db import mongo
 
 bp = Blueprint('auth', __name__)
 
-@bp.route('/hello')
+@bp.route('/register')
 def hello():
-    documents = [doc for doc in mongo.db.users.find()]
-    return dumps(documents)
+    
