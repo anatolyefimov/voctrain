@@ -1,0 +1,28 @@
+.Header {
+    padding: 20px 40px;
+    font-size: 20px;
+    border-bottom: solid 1px rgb(235, 234, 234);
+}
+
+.Header__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Header__logo {
+    font-size: 45px;
+    text-decoration: none;
+    font-family: 'Lacquer';
+    color: rgb(80, 80, 80);
+}
+
+.Header__link {
+    margin: 20px;
+    text-decoration: none;
+    color: rgb(80, 80, 80);
+}
+
+.Header__link:hover {
+    border-bottom: 3px solid rgb(190, 190, 190);
+}
