@@ -1,6 +1,10 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
+
+import login from 'api/login'
 
 import './Login.css'
+
 
 class Login extends React.Component {
     constructor(props) {
@@ -9,6 +13,7 @@ class Login extends React.Component {
         this.state = {
             username: '',
             password: '',
+            errior: false
         }
 
         this.onInputChange = this.onInputChange.bind(this)
@@ -23,7 +28,25 @@ class Login extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        
+        this.setState({
+            error: false,
+            success: false
+        })
+        login({
+            username: this.state.username,
+            password: this.state.password
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    this.setState({
+                        success: true
+                    })
+                } else {
+                    this.setState({
+                        error: true
+                    })
+                }
+            })
     }
 
     render() {
@@ -47,13 +70,12 @@ class Login extends React.Component {
                         value={this.state.password} 
                         onChange={this.onInputChange}
                     /><br />
-
             
-                    {/* { this.state.error.alreadyExist && <div className='form__error'>This username is already taken</div> } */}
-                    {/* { this.state.error.passwordMismatching && <div className='form__error'>Password mismatching</div> } */}
+                    { this.state.error && <div className='form__error'>Incorrect username or password</div> }
                     
                     <button type='submit'>SIGN IN</button>
                 </form>
+                { this.state.success && <Redirect to='/dashboard' />}
             </div>
         );
     }

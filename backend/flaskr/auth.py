@@ -38,7 +38,20 @@ def login():
         return {
             'message': 'Incorrect password',
         }, 401
-    session['id'] = str(user['_id'])
+    session['user_id'] = str(user['_id'])
     return {
         'message': 'User succecfully logged in'
     } , 200
+
+@bp.route('/is_authenticated')
+def is_authenticated():
+    user_id = session.get('user_id')
+
+    if user_id is None:
+        return {
+            'is_autheticated': False
+        }, 401
+    else:
+        return {
+            'is_autheticated': True
+        }, 200
