@@ -13,7 +13,7 @@ class Login extends React.Component {
         this.state = {
             username: '',
             password: '',
-            errior: false
+            error: false
         }
 
         this.onInputChange = this.onInputChange.bind(this)
@@ -37,16 +37,21 @@ class Login extends React.Component {
             password: this.state.password
         })
             .then(res => {
+                this.props.setUser()
+
                 if (res.status === 200) {
                     this.setState({
                         success: true
                     })
+
                 } else {
                     this.setState({
                         error: true
                     })
                 }
+
             })
+        
     }
 
     render() {

@@ -4,6 +4,8 @@ from flask import (
 from werkzeug.security import (
     check_password_hash, generate_password_hash
 )
+from bson.json_util import dumps
+from bson.objectid import ObjectId
 
 from flaskr.db import mongo
 
@@ -43,15 +45,23 @@ def login():
         'message': 'User succecfully logged in'
     } , 200
 
-@bp.route('/is_authenticated')
+@bp.route('/get_user_data')
 def is_authenticated():
     user_id = session.get('user_id')
-
-    if user_id is None:
+    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    if user is None:
         return {
-            'is_autheticated': False
+            'message': 'not_found'
         }, 401
     else:
-        return {
-            'is_autheticated': True
-        }, 200
+        user = {
+            "username": user['username']
+        }
+        return dumps(user), 200
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return {
+        'message': 'User succecfully logged out'
+    } , 200
