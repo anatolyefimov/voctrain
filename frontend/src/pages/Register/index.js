@@ -1,4 +1,5 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 
 import register from 'api/register'
 
@@ -12,6 +13,7 @@ class Register extends React.Component {
             username: '',
             password: '',
             confirmedPassword: '',
+            succefullRegister: false,
             error: {
                 passwordMismatching: false,
                 alreadyExist: false
@@ -31,7 +33,7 @@ class Register extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.setState({ error:{ alreadyExist: false, passwordMismatching: false} })
+        this.setState({ error:{ alreadyExist: false, passwordMismatching: false}, succefullRegister: false })
         
         if (this.state.password !== this.state.confirmedPassword) {
             this.setState({
@@ -46,6 +48,8 @@ class Register extends React.Component {
             .then(res => {
                 if (res.status === 409) {
                     this.setState({ error:{ alreadyExist: true} })
+                } else {
+                    this.setState({succefullRegister: true})
                 }
             })
 
@@ -86,7 +90,7 @@ class Register extends React.Component {
                     
                     <button type='submit'>SUBMIT</button>
                 </form>
-                {/* { this.state.succefullRegister && <Redirect to='/login' />} */}
+                { this.state.succefullRegister && <Redirect to='/login' />}
             </div>
         );
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 
 import './App.css';
 
@@ -8,7 +8,7 @@ import Register from 'pages/Register'
 import Login from 'pages/Login'
 import Dashboard from 'pages/Dashboard'
 
-import getUserData from 'api/getUserData'
+import isLoggedIn from 'api/isLoggedIn'
 
 class App extends React.Component {
     constructor(props) {
@@ -17,9 +17,7 @@ class App extends React.Component {
         this.state = {
             user: {
                 isLoggedIn: false,
-                data: {
-                    username: ''
-                }
+                username: ''
             }
         }
 
@@ -27,10 +25,12 @@ class App extends React.Component {
     }
 
     setUser() {
-        getUserData()
+        return isLoggedIn()
             .then(user => {
                 this.setState({user: user})
+                return user
             }) 
+
     }
 
     componentDidMount() {
@@ -38,6 +38,7 @@ class App extends React.Component {
     }
 
     render() {
+        console.log(this.state.user.isLoggedIn)
         return (
             <div className='App'>
                 <Header user={{...this.state.user}} setUser={this.setUser}/>
@@ -48,7 +49,11 @@ class App extends React.Component {
                     <Login setUser={this.setUser} />
                 </Route>
                 <Route path='/dashboard'>
-                    <Dashboard user={{...this.state.user}} />
+                    {
+                        this.state.user.isLoggedIn ?
+                            <Dashboard user={this.state.user} /> :
+                            <Redirect to='/login' />
+                    }
                 </Route>
             </div>
         )

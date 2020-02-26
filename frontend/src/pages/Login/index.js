@@ -36,10 +36,11 @@ class Login extends React.Component {
             username: this.state.username,
             password: this.state.password
         })
-            .then(res => {
-                this.props.setUser()
+            .then(() => this.props.setUser()
+            )
+            .then(user => {
 
-                if (res.status === 200) {
+                if (user.isLoggedIn) {
                     this.setState({
                         success: true
                     })

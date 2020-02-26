@@ -35,7 +35,7 @@ function Header(props) {
                     ) : (
                         <React.Fragment>
                             <NavLink to='/dashboard' className='Header__link'>
-                                {props.user.data.username}
+                                {props.user.username}
                             </NavLink>
                             <NavLink onClick={handleLogout} to='/' className='Header__link'>
                                 Log out

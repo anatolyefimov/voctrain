@@ -45,19 +45,20 @@ def login():
         'message': 'User succecfully logged in'
     } , 200
 
-@bp.route('/get_user_data')
+@bp.route('/is_logged_in')
 def is_authenticated():
     user_id = session.get('user_id')
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
     if user is None:
         return {
-            'message': 'not_found'
-        }, 401
+            'is_logged_in': False,
+            'username': None
+        }, 200
     else:
-        user = {
+        return {
+            'is_logged_in': True,
             "username": user['username']
-        }
-        return dumps(user), 200
+        }, 200
 
 @bp.route('/logout')
 def logout():
