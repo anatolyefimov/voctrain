@@ -7,7 +7,9 @@ from werkzeug.security import (
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 
-from flaskr.db import mongo
+from flaskr.db.mongo import mongo
+from flaskr.db.user import new_user
+
 
 bp = Blueprint('auth', __name__)
 
@@ -18,10 +20,10 @@ def register():
         return {
             'message': 'This username is already taken.'
         }, 409
-    mongo.db.users.insert_one({
-        'username': data['username'],
-        'password': generate_password_hash(data['password'])
-    })
+    
+    user = new_user(data['username'])
+    user['password'] = generate_password_hash(data['password'])
+    mongo.db.users.insert_one(user)
 
     return {
         'message': 'User created successfully',

@@ -20,7 +20,7 @@ function Header(props) {
         <header className='Header'>
             <nav className='Header__nav'>
                 <NavLink to='/' className='Header__logo'>
-                    V
+                    voctrain
                 </NavLink>
                 <div className='Header__menu'>
                     {!props.user.isLoggedIn ?  (

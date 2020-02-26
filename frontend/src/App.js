@@ -15,6 +15,7 @@ class App extends React.Component {
         super(props)
 
         this.state = {
+            isLoaded: false,
             user: {
                 isLoggedIn: false,
                 username: ''
@@ -29,16 +30,19 @@ class App extends React.Component {
             .then(user => {
                 this.setState({user: user})
                 return user
-            }) 
-
+            })
     }
 
     componentDidMount() {
         this.setUser()
+            .then(() => {
+                this.setState({
+                    isLoaded : true
+                })
+            })
     }
 
     render() {
-        console.log(this.state.user.isLoggedIn)
         return (
             <div className='App'>
                 <Header user={{...this.state.user}} setUser={this.setUser}/>
@@ -48,13 +52,16 @@ class App extends React.Component {
                 <Route path='/login' >
                     <Login setUser={this.setUser} />
                 </Route>
-                <Route path='/dashboard'>
-                    {
-                        this.state.user.isLoggedIn ?
-                            <Dashboard user={this.state.user} /> :
-                            <Redirect to='/login' />
-                    }
-                </Route>
+                
+                { this.state.isLoaded &&
+                    <Route path='/dashboard'>
+                        {
+                            this.state.user.isLoggedIn ?
+                                <Dashboard user={this.state.user} /> :
+                                <Redirect to='/login' />
+                        }
+                    </Route>
+                }
             </div>
         )
     }

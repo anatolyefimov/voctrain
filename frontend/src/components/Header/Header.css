@@ -1,7 +1,8 @@
 .Header {
-    padding: 20px 40px;
-    font-size: 20px;
-    border-bottom: solid 1px rgb(235, 234, 234);
+    padding: 15px 40px;
+    font-size: 18px;
+    border-bottom: solid 1px rgb(204, 204, 204);
+    background-color: rgb(237, 235, 233);
 }
 
 .Header__nav {
@@ -11,7 +12,7 @@
 }
 
 .Header__logo {
-    font-size: 45px;
+    font-size: 30px;
     text-decoration: none;
     font-family: 'Lacquer';
     color: rgb(80, 80, 80);

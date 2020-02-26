@@ -1,0 +1,54 @@
+.Dashboard{
+    padding: 30px;
+}
+
+.word-lists__menu {
+    display: flex;
+    align-items: center;
+}
+
+
+.word-lists__new {
+    height: 40px;
+    /* border: 1px solid black; */
+    display: flex;
+}
+
+.word-lists__new button,
+.word-lists__new input {
+    box-sizing: border-box;
+    height: 40px;
+    outline-width: 0;
+}
+
+
+
+.word-lists__new input {
+    width: 300px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border: 0;
+    font-size: 15px;
+
+    padding-left: 10px;
+    border: 1px solid gray;
+    font-family: Roboto;
+
+}
+
+.word-lists__new button {
+    padding : 0;
+    width: 40px;
+    border: 0;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    background-color: #1b78d0;
+    color: white;
+    font-size: 25px ;
+}
+
+
+.word-lists__title {
+    font-size: 30px;
+    margin-right: 20px;
+}

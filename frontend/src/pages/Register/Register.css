@@ -27,7 +27,7 @@
 }
 
 .form button[type='submit'] {
-    background-color: rgb(94, 94, 255);
+    background-color: #1b78d0;
     border-radius: 5px;
     color: white;
     margin-top: 25px;
