@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 from flaskr.blueprints.auth import bp as auth_bp
-from flaskr.blueprints.fetch import bp as fetch_bp
+from flaskr.blueprints.fetch import bp as user_bp
 from flaskr.db.mongo import mongo
 
 
@@ -21,7 +21,7 @@ except OSError:
     pass
 
 app.register_blueprint(auth_bp)
-app.register_blueprint(fetch_bp)
+app.register_blueprint(user_bp)
 
 
 

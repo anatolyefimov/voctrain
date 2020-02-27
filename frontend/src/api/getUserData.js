@@ -1,5 +1,5 @@
 async function getUserData() {
-    let res = await fetch('/is_logged_in', {
+    let res = await fetch('/get_user_data', {
         method: 'GET',
         credentials: 'same-origin'
     })

@@ -59,7 +59,7 @@ def is_authenticated():
     else:
         return {
             'is_logged_in': True,
-            "username": user['username']
+            'username': user['username']
         }, 200
 
 @bp.route('/logout')
