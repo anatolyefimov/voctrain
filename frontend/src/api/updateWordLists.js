@@ -1,7 +1,7 @@
-async function addWordList(data) {
-    let res = await fetch('/add_word_list', {
+async function updateWordLists(data) {
+    let res = await fetch('/update_word_lists', {
         method: 'POST',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -16,4 +16,4 @@ async function addWordList(data) {
     return res;
 }
 
-export default addWordList;
+export default updateWordLists;

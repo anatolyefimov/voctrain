@@ -1,8 +1,11 @@
 import React from 'react'
+import { Route, Link } from 'react-router-dom';
 
 import getUserData from 'api/getUserData'
+import updateWordLists from 'api/updateWordLists'
 
 import WordListBadge from 'components/WordListBadge';
+// import WordListPage from 'pages/WordListPage';
 
 import './Dashboard.css'
 
@@ -14,7 +17,7 @@ class Dashboard extends React.Component {
             user: {
                 username: '',
                 vocabluarySize: 0,
-                wordLists: {},  
+                wordLists: [],  
             },
             newWordList: ''
         }
@@ -44,12 +47,15 @@ class Dashboard extends React.Component {
 
     handleNewWordList(e) {
         e.preventDefault();
-        
-        this.setState(state => {
-            state.user.wordLists[state.newWordList] = {};
-            state.newWordList = ''
-            return state;
-        })
+
+        updateWordLists(this.state.user.wordLists.concat({name: this.state.newWordList}))
+            .then(() => {
+                this.setState(state => {
+                    state.user.wordLists.push({ name: state.newWordList })
+                    state.newWordList = ''
+                    return state;
+                })
+            })
     }
     
 
@@ -73,12 +79,13 @@ class Dashboard extends React.Component {
                     </div>
                     <div className='word-lists__container'>
                         {
-                            Object.keys(this.state.user.wordLists).map(function(name) {
-                                return <WordListBadge key={name} name={name} />
+                            this.state.user.wordLists.map(function(wordList, index) {
+                                return <Link style={{textDecoration: 'none', color: 'inherit'}} to={`dashboard/wordlist/${index}`}> <WordListBadge key={index} name={wordList.name} /> </Link>
                             }) 
                         }
                     </div>
-                </div>        
+                </div> 
+                 
             </div>
         )
     }

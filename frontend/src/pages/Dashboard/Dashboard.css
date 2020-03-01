@@ -18,7 +18,7 @@
 .word-lists__new input {
     box-sizing: border-box;
     height: 40px;
-    outline-width: 0;
+    /* outline-width: 0; */
 }
 
 

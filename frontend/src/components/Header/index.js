@@ -11,7 +11,7 @@ function Header(props) {
     function handleLogout(e) {
         e.preventDefault();
         logout()
-            .then(res => props.setUser())
+            .then(() => props.setUser())
         
         history.push('/')
     }

@@ -4,7 +4,6 @@ from flask import (
 from werkzeug.security import (
     check_password_hash, generate_password_hash
 )
-from bson.json_util import dumps
 from bson.objectid import ObjectId
 
 from flaskr.db.mongo import mongo

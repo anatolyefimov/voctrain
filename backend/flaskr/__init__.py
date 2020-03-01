@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 from flaskr.blueprints.auth import bp as auth_bp
-from flaskr.blueprints.fetch import bp as user_bp
+from flaskr.blueprints.user import bp as user_bp
 from flaskr.db.mongo import mongo
 
 

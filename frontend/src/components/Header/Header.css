@@ -3,6 +3,7 @@
     font-size: 18px;
     border-bottom: solid 1px rgb(204, 204, 204);
     background-color: rgb(237, 235, 233);
+    box-shadow: 1px 1px 4px;
 }
 
 .Header__nav {
