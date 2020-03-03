@@ -1,20 +1,16 @@
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink   } from 'react-router-dom';
+import { connect } from 'react-redux'
 
 import logout from 'api/logout'
 
+import initialState from 'redux/state'
+import { fetchUserData } from 'redux/actions'
+
 import './Header.css';
 
-function Header(props) {
-    let history = useHistory();
 
-    function handleLogout(e) {
-        e.preventDefault();
-        logout()
-            .then(() => props.setUser())
-        
-        history.push('/')
-    }
+function Header(props) {
 
     return (
         <header className='Header'>
@@ -37,7 +33,7 @@ function Header(props) {
                             <NavLink to='/dashboard' className='Header__link'>
                                 {props.user.username}
                             </NavLink>
-                            <NavLink onClick={handleLogout} to='/' className='Header__link'>
+                            <NavLink onClick={props.handleLogout} to='/' className='Header__link'>
                                 Log out
                             </NavLink> 
                         </React.Fragment>
@@ -48,6 +44,22 @@ function Header(props) {
     )
 }
 
+const mapStateToProps = state => ({
+    user: {
+        username: state.user.username,
+        isLoggedIn: state.user.isLoggedIn
+    }
+})
+
+const mapDispatchToProps = dispatch => ({
+    handleLogout(e) {
+        e.preventDefault()
+
+        logout()
+            .then(() => { dispatch(fetchUserData(initialState)) })
+                
+    }
+})
 
 
-export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -11,9 +11,17 @@ bp = Blueprint('user', __name__)
 @bp.route('/get_user_data')
 def get_user_data():
     user_id = session.get('user_id')
-    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
-    user['_id'] = user_id
-    user.pop('password', None) 
+    if user_id:
+        user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+        user['_id'] = user_id
+        user.pop('password', None) 
+        user['isLoggedIn'] = True
+    else:
+        user = {
+            'isLoggedIn': False,
+            'username': '',
+            'word_list': []
+        }
     
     return user
 

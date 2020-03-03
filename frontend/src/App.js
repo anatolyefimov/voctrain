@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { Route, Redirect, Switch } from 'react-router-dom'
 
-import './App.css';
+import store from 'redux/store'
+import { fetchUserData } from 'redux/actions'
 
 import Header from 'components/Header';
 import Register from 'pages/Register'
@@ -9,51 +11,33 @@ import Login from 'pages/Login'
 import Dashboard from 'pages/Dashboard'
 import WordListPage from 'pages/WordListPage';
 
-import isLoggedIn from 'api/isLoggedIn'
+import getUserData from 'api/getUserData'
+
+import './App.css';
+
 
 class App extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            isLoaded: false,
-            user: {
-                isLoggedIn: false,
-                username: ''
-            }
-        }
-
-        this.setUser = this.setUser.bind(this)
-    }
-
-    setUser() {
-        return isLoggedIn()
-            .then(user => {
-                this.setState({user: user})
-                return user
-            })
-    }
 
     componentDidMount() {
-        this.setUser()
-            .then(() => {
-                this.setState({
-                    isLoaded : true
-                })
+        getUserData()
+            .then(user => {
+                console.log(user)
+                store.dispatch(fetchUserData(user))
             })
     }
 
     render() {
         return (
-            this.state.isLoaded &&
+
             <div className='App'>
-                <Header user={{...this.state.user}} setUser={this.setUser}/>
-                <Switch>
+                <h1>Hello!!!</h1>
+                <Header/>
+                {/* <Switch>
                     <Route path='/register'>
                         <Register />
                     </Route>
                     <Route path='/login' >
-                        <Login setUser={this.setUser} />
+                        <Login />
                     </Route>
                     
                     <Route path='/dashboard/wordlist/:wordListId'>
@@ -68,11 +52,13 @@ class App extends React.Component {
                         }
                     </Route>
                    
-                </Switch>
+                </Switch> */}
             </div>
 
         )
     }
 }
 
-export default App;
+
+
+export default connect()(App);
