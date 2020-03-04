@@ -1,7 +1,9 @@
 import React from 'react'
 import { Route, Link } from 'react-router-dom';
+import {connect} from 'react-redux'
 
-import getUserData from 'api/getUserData'
+import {fetchUserData} from 'redux/actions'
+
 import updateWordLists from 'api/updateWordLists'
 
 import WordListBadge from 'components/WordListBadge';
@@ -14,11 +16,6 @@ class Dashboard extends React.Component {
         super(props)
 
         this.state = {
-            user: {
-                username: '',
-                vocabluarySize: 0,
-                wordLists: [],  
-            },
             newWordList: ''
         }
 
@@ -26,18 +23,6 @@ class Dashboard extends React.Component {
         this.handleNewWordList = this.handleNewWordList.bind(this)
     }
 
-    componentDidMount() {
-        getUserData()
-            .then(user => {
-                this.setState({
-                    user: {
-                        username: user['username'],
-                        vocabluarySize: user['vocabluary_size'],
-                        wordLists: user['word_lists']
-                    }
-                })
-            })
-    }
 
     onInputChange(e) {
         this.setState({
@@ -48,12 +33,11 @@ class Dashboard extends React.Component {
     handleNewWordList(e) {
         e.preventDefault();
 
-        updateWordLists(this.state.user.wordLists.concat({name: this.state.newWordList}))
-            .then(() => {
-                this.setState(state => {
-                    state.user.wordLists.push({ name: state.newWordList })
-                    state.newWordList = ''
-                    return state;
+        updateWordLists(this.props.user.wordLists.concat({name: this.state.newWordList}))
+            .then((user) => {
+                this.props.dispatch(fetchUserData(user))
+                this.setState({
+                    newWordList: ''
                 })
             })
     }
@@ -79,7 +63,7 @@ class Dashboard extends React.Component {
                     </div>
                     <div className='word-lists__container'>
                         {
-                            this.state.user.wordLists.map(function(wordList, index) {
+                            this.props.user.wordLists.map(function(wordList, index) {
                                 return <Link style={{textDecoration: 'none', color: 'inherit'}} to={`dashboard/wordlist/${index}`}> <WordListBadge key={index} name={wordList.name} /> </Link>
                             }) 
                         }
@@ -91,4 +75,10 @@ class Dashboard extends React.Component {
     }
 }
 
-export default Dashboard;
+const mapStateToProps = state => ({
+    user: {
+        wordLists: state.user.wordLists
+    }
+})
+
+export default connect(mapStateToProps)(Dashboard);

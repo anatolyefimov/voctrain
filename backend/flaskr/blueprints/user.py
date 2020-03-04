@@ -16,11 +16,11 @@ def get_user_data():
         user['_id'] = user_id
         user.pop('password', None) 
         user['isLoggedIn'] = True
-    else:
+    else:   
         user = {
             'isLoggedIn': False,
             'username': '',
-            'word_list': []
+            'wordLists': []
         }
     
     return user
@@ -31,9 +31,10 @@ def update_word_lists():
     data = request.get_json()
     print(data)
     user_id = session.get('user_id')
-    mongo.db.users.update_one({'_id': ObjectId(user_id)}, {'$set' : {'word_lists': data}})
+    mongo.db.users.update_one({'_id': ObjectId(user_id)}, {'$set' : {'wordLists': data}})
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    user.pop('password')
+    user['_id'] = str(user['_id'])
+    user['isLoggedIn'] = True
 
-    return {
-        "message": "Word Lists succefully updated"
-    }
+    return user

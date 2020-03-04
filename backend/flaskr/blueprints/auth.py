@@ -33,18 +33,16 @@ def login():
     data = request.get_json()
     user = mongo.db.users.find_one({'username': data['username']})
     
-    if user is None:
-        return {
-            'message': 'User is not found',
-        }, 401
-    elif not check_password_hash(user['password'], data['password']):
-        return {
-            'message': 'Incorrect password',
-        }, 401
+    if user is None or  not check_password_hash(user['password'], data['password']):
+        user = new_user()
+        user['isLoggedIn'] = False
+
+        return user
     session['user_id'] = str(user['_id'])
-    return {
-        'message': 'User succecfully logged in'
-    } , 200
+    user['_id'] = str(user['_id'])
+    user.pop('password')
+    user['isLoggedIn'] = True
+    return user, 200
 
 @bp.route('/logout')
 def logout():

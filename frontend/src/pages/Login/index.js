@@ -1,7 +1,10 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import login from 'api/login'
+
+import { fetchUserData } from 'redux/actions'
 
 import './Login.css'
 
@@ -36,11 +39,13 @@ class Login extends React.Component {
             username: this.state.username,
             password: this.state.password
         })
-            .then(() => this.props.setUser()
-            )
-            .then(user => {
+            .then((user) => {
+                this.props.setUser(user)
+                return user.isLoggedIn
+            })
+            .then(isLoggedIn => {
 
-                if (user.isLoggedIn) {
+                if (isLoggedIn) {
                     this.setState({
                         success: true
                     })
@@ -87,4 +92,11 @@ class Login extends React.Component {
     }
 }
 
-export default Login
+
+const mapDispatchToProps = dispatch => ({
+    setUser(user) {
+        dispatch(fetchUserData(user))
+    }
+})
+
+export default connect(null, mapDispatchToProps)(Login)

@@ -56,7 +56,7 @@ const mapDispatchToProps = dispatch => ({
         e.preventDefault()
 
         logout()
-            .then(() => { dispatch(fetchUserData(initialState)) })
+            .then(() => { dispatch(fetchUserData(initialState.user)) })
                 
     }
 })

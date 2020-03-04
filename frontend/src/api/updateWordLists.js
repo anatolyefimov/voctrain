@@ -7,11 +7,8 @@ async function updateWordLists(data) {
         },
         body: JSON.stringify(data)
     })
-
-    const status = res.status;
     
     res = await res.json()
-    res.status = status;
 
     return res;
 }
