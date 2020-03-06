@@ -12,8 +12,6 @@ import WordListPage from 'pages/WordListPage';
 
 import getUserData from 'api/getUserData'
 
-import './App.css';
-
 
 class App extends React.Component {
     componentDidMount() {
@@ -22,35 +20,32 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className='App'>
-                { this.props.isLoaded &&
+                this.props.isLoaded &&
                 <React.Fragment>
                     <Header/>
-                    <Switch>
-                        <Route path='/register'>
-                            <Register />
-                        </Route>
-                        <Route path='/login' >
-                            <Login />
-                        </Route>
-                        
-                        <Route path='/dashboard/wordlist/:wordListId'>
-                            <WordListPage />
-                        </Route>  
-                        
-                        <Route path='/dashboard'>
-                            {
-                                this.props.user.isLoggedIn ?
-                                    <Dashboard /> :
-                                    <Redirect to='/login' />
-                            }
-                        </Route>
-                    
-                    </Switch>
-                </React.Fragment>
-                }
-            </div>
+                    <main>
+                        <Switch>
+                            <Route path='/register'>
+                                <Register />
+                            </Route>
+                            <Route path='/login' >
+                                <Login />
+                            </Route>
+                            
+                            <Route path='/dashboard/wordlist/:wordListId' component={WordListPage} />
 
+                            
+                            <Route path='/dashboard'>
+                                {
+                                    this.props.user.isLoggedIn ?
+                                        <Dashboard /> :
+                                        <Redirect to='/login' />
+                                }
+                            </Route>
+                        </Switch>
+                    </main>
+                </React.Fragment>
+                
         )
     }
 }
@@ -71,6 +66,5 @@ const mapDispatchToProps = dispatch => ({
             })
     }
 })
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

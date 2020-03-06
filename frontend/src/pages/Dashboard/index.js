@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Link } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
 import {connect} from 'react-redux'
 
 import {fetchUserData} from 'redux/actions'
@@ -44,7 +44,6 @@ class Dashboard extends React.Component {
     
 
     render() {
-        // console.log(this.state.user.wordLists)
         return (
             <div className='Dashboard'>
                 <div className='word-lists'>
@@ -64,7 +63,9 @@ class Dashboard extends React.Component {
                     <div className='word-lists__container'>
                         {
                             this.props.user.wordLists.map(function(wordList, index) {
-                                return <Link style={{textDecoration: 'none', color: 'inherit'}} to={`dashboard/wordlist/${index}`}> <WordListBadge key={index} name={wordList.name} /> </Link>
+                                return <Link key={index}  style={{textDecoration: 'none', color: 'inherit'}} to={`dashboard/wordlist/${index}`}> 
+                                    <WordListBadge name={wordList.name} /> 
+                                </Link>
                             }) 
                         }
                     </div>

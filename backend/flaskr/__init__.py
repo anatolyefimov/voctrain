@@ -3,6 +3,7 @@ import os
 from flask import Flask
 from flaskr.blueprints.auth import bp as auth_bp
 from flaskr.blueprints.user import bp as user_bp
+from flaskr.blueprints.translate import bp as translate_bp
 from flaskr.db.mongo import mongo
 
 
@@ -22,6 +23,7 @@ except OSError:
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(user_bp)
+app.register_blueprint(translate_bp)
 
 
 

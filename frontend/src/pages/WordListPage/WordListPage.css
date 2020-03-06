@@ -1,0 +1,47 @@
+.WordListPage__word-list {
+    width:80%;
+    margin: auto;
+}
+
+.translator {
+    display: flex;
+   
+}
+
+.translator__input,
+.translator__output {
+    box-sizing: border-box;
+    height: 45px;
+    width: 50%;
+    font-family: Roboto;
+    font-size: 20px;
+    border: 0;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    color: rgb(80, 80, 80);
+}
+
+
+.translator__input {
+
+    /* border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px; */
+
+
+    padding-left: 10px;
+
+
+}
+
+.translator__output {
+    line-height: 41px;
+    padding-left: 10px;
+    padding-bottom: 1px;
+    padding-top: 1px;
+    vertical-align: auto;
+}
+
+textarea {
+    resize: none;
+    overflow: hidden;
+}

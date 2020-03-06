@@ -5,5 +5,12 @@ body {
 }
 
 #root {
+    font-family: 'Roboto', 'Fira Sans Extra Condensed', sans-serif;
+    color: rgb(80, 80, 80);
+      
     height: 100%;
+}
+
+main {
+    padding: 40px;
 }

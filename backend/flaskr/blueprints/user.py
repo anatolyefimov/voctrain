@@ -29,7 +29,6 @@ def get_user_data():
 def update_word_lists():
 
     data = request.get_json()
-    print(data)
     user_id = session.get('user_id')
     mongo.db.users.update_one({'_id': ObjectId(user_id)}, {'$set' : {'wordLists': data}})
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
