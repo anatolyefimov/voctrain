@@ -7,7 +7,6 @@ import {fetchUserData} from 'redux/actions'
 import updateWordLists from 'api/updateWordLists'
 
 import WordListBadge from 'components/WordListBadge';
-// import WordListPage from 'pages/WordListPage';
 
 import './Dashboard.css'
 
@@ -33,7 +32,7 @@ class Dashboard extends React.Component {
     handleNewWordList(e) {
         e.preventDefault();
 
-        updateWordLists(this.props.user.wordLists.concat({name: this.state.newWordList}))
+        updateWordLists(this.props.user.wordLists.concat({ name: this.state.newWordList, words: []}))
             .then((user) => {
                 this.props.dispatch(fetchUserData(user))
                 this.setState({

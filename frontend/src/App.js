@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Route, Redirect, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import { fetchUserData } from 'redux/actions'
 
+import PrivateRoute from 'components/PrivateRoute'
 import Header from 'components/Header';
 import Register from 'pages/Register'
 import Login from 'pages/Login'
@@ -32,16 +33,8 @@ class App extends React.Component {
                                 <Login />
                             </Route>
                             
-                            <Route path='/dashboard/wordlist/:wordListId' component={WordListPage} />
-
-                            
-                            <Route path='/dashboard'>
-                                {
-                                    this.props.user.isLoggedIn ?
-                                        <Dashboard /> :
-                                        <Redirect to='/login' />
-                                }
-                            </Route>
+                            <PrivateRoute path='/dashboard/wordlist/:wordListId' component={WordListPage} isAuth={this.props.user.isLoggedIn}/>
+                            <PrivateRoute path='/dashboard' component={Dashboard} isAuth={this.props.user.isLoggedIn} />
                         </Switch>
                     </main>
                 </React.Fragment>

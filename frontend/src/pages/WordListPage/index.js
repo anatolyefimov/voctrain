@@ -1,8 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux'
+
+import { updateWordLists as  updateWordListsAction } from 'redux/actions'
 
 import translate from 'api/translate'
+import updateWordLists from 'api/updateWordLists';
 
 import './WordListPage.css'
+
 
 class WordListPage extends React.Component {
 
@@ -15,6 +20,26 @@ class WordListPage extends React.Component {
         }
 
         this.onTextAreaChange = this.onTextAreaChange.bind(this)
+        this.onNewWord = this.onNewWord.bind(this)
+    }
+
+    onNewWord(e) {
+        e.preventDefault();
+        
+        let wordLists = [...this.props.user.wordLists]
+        wordLists[this.props.match.params.wordListId].words = wordLists[this.props.match.params.wordListId].words || []
+        wordLists[this.props.match.params.wordListId].words.push({
+            word: this.state.translatorInput,
+            translation: this.state.translatorOutput
+        })
+        updateWordLists(wordLists)
+            .then(user => {
+                this.props.dispatch(updateWordListsAction(user.wordLists))
+                this.setState({
+                    translatorInput: '',
+                    translatorOutput: ''
+                })
+            })
     }
 
     onTextAreaChange(e) {
@@ -32,9 +57,10 @@ class WordListPage extends React.Component {
     }
 
     render() {
+
         return (
-            <form className='WordListPage'>
-                <h1>word list ID { this.props.match.params.wordListId }</h1> 
+            <form className='WordListPage' onSubmit={this.onNewWord}>
+                
                 <div className='WordListPage__word-list'>
                     <div className='translator'>
                         <input className='translator__input' 
@@ -50,7 +76,22 @@ class WordListPage extends React.Component {
                             value={this.state.translatorOutput} 
                             readOnly 
                         />
+                      
                     </div>
+
+                    {
+                            
+                            this.props.user.wordLists[ this.props.match.params.wordListId ].words.map((item, key) => 
+                                <div className='word'>
+                                    <div className='word__english'>
+                                        {item.word}
+                                    </div>
+                                    <div className='word__translation'>
+                                        {item.translation}
+                                    </div>
+                                </div>
+                            )
+                    }
                 </div>
             </form>
         )
@@ -59,4 +100,10 @@ class WordListPage extends React.Component {
 }
 
 
-export default WordListPage
+const mapStateToProps = state => ({
+      user: {
+        wordLists: state.user.wordLists
+    }
+})
+
+export default connect(mapStateToProps)(WordListPage);
