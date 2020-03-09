@@ -60,7 +60,9 @@ class WordListPage extends React.Component {
 
         return (
             <form className='WordListPage' onSubmit={this.onNewWord}>
-                
+                <div className='word-list-info'>
+                    <h1 className='word-list-info__header'>{this.props.user.wordLists[this.props.match.params.wordListId].name}</h1>
+                </div>
                 <div className='WordListPage__word-list'>
                     <div className='translator'>
                         <input className='translator__input' 

@@ -33,8 +33,9 @@ class App extends React.Component {
                                 <Login />
                             </Route>
                             
-                            <PrivateRoute path='/dashboard/wordlist/:wordListId' component={WordListPage} isAuth={this.props.user.isLoggedIn}/>
+                            <PrivateRoute path='/dashboard/wordlist/:wordListId'  component={WordListPage}  isAuth={this.props.user.isLoggedIn} />
                             <PrivateRoute path='/dashboard' component={Dashboard} isAuth={this.props.user.isLoggedIn} />
+                        
                         </Switch>
                     </main>
                 </React.Fragment>

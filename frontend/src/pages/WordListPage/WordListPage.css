@@ -50,3 +50,12 @@ textarea {
     width: 50%;
     padding-left: 10px;
 }
+
+.word-list-info {
+    width: auto;
+    width: -moz-min-content;    /* Firefox */
+    width: -webkit-min-content; /* Chrome */
+    width: min-content;
+    margin: auto;
+}
+
