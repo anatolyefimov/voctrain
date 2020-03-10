@@ -52,10 +52,17 @@ textarea {
 }
 
 .word-list-info {
-    width: auto;
-    width: -moz-min-content;    /* Firefox */
-    width: -webkit-min-content; /* Chrome */
+    width: -moz-min-content;    
+    width: -webkit-min-content; 
     width: min-content;
     margin: auto;
 }
 
+.train-start {  
+    width: -moz-min-content;    
+    width: -webkit-min-content; 
+    width: min-content;
+    display: block;
+    margin: auto;    
+    margin-bottom: 25px;
+}

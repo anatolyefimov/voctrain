@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom'
 
 import register from 'api/register'
 
+import Button from 'components/Button'
+
 import './Register.css'
 
 class Register extends React.Component {
@@ -88,7 +90,7 @@ class Register extends React.Component {
                     { this.state.error.alreadyExist && <div className='form__error'>This username is already taken</div> }
                     { this.state.error.passwordMismatching && <div className='form__error'>Password mismatching</div> }
                     
-                    <button type='submit'>SUBMIT</button>
+                    <Button type='submit' text='SUBMIT' />
                 </form>
                 { this.state.succefullRegister && <Redirect to='/login' />}
             </div>

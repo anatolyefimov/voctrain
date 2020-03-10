@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 
 import login from 'api/login'
 
+import Button from 'components/Button'
+
 import { fetchUserData } from 'redux/actions'
 
 import './Login.css'
@@ -84,7 +86,7 @@ class Login extends React.Component {
             
                     { this.state.error && <div className='form__error'>Incorrect username or password</div> }
                     
-                    <button type='submit'>SIGN IN</button>
+                    <Button type='submit' text='LOG IN' />
                 </form>
                 { this.state.success && <Redirect to='/dashboard' />}
             </div>

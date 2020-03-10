@@ -1,0 +1,13 @@
+.WordListTrain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    
+}
+
+.WordListTrain__container {
+    width: 600px;
+    height: 400px;
+    border: 1px solid black
+}

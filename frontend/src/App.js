@@ -10,6 +10,7 @@ import Register from 'pages/Register'
 import Login from 'pages/Login'
 import Dashboard from 'pages/Dashboard'
 import WordListPage from 'pages/WordListPage';
+import WordListTrain from 'pages/WordListTrain'
 
 import getUserData from 'api/getUserData'
 
@@ -26,15 +27,16 @@ class App extends React.Component {
                     <Header/>
                     <main>
                         <Switch>
-                            <Route path='/register'>
+                            <Route exact path='/register'>
                                 <Register />
                             </Route>
-                            <Route path='/login' >
+                            <Route exact path='/login' >
                                 <Login />
                             </Route>
-                            
-                            <PrivateRoute path='/dashboard/wordlist/:wordListId'  component={WordListPage}  isAuth={this.props.user.isLoggedIn} />
-                            <PrivateRoute path='/dashboard' component={Dashboard} isAuth={this.props.user.isLoggedIn} />
+
+                            <PrivateRoute exact path='/dashboard/wordlist/:wordListId/train'  component={WordListTrain}  isAuth={this.props.user.isLoggedIn} />
+                            <PrivateRoute exact path='/dashboard/wordlist/:wordListId'  component={WordListPage}  isAuth={this.props.user.isLoggedIn} />
+                            <PrivateRoute exact path='/dashboard' component={Dashboard} isAuth={this.props.user.isLoggedIn} />
                         
                         </Switch>
                     </main>

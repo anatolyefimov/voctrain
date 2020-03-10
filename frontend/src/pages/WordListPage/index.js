@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+
 import { updateWordLists as  updateWordListsAction } from 'redux/actions'
+
+import Button from 'components/Button'
 
 import translate from 'api/translate'
 import updateWordLists from 'api/updateWordLists';
@@ -21,6 +24,12 @@ class WordListPage extends React.Component {
 
         this.onTextAreaChange = this.onTextAreaChange.bind(this)
         this.onNewWord = this.onNewWord.bind(this)
+        this.onTrain = this.onTrain.bind(this)
+    }
+
+    onTrain(e) {
+        e.preventDefault()
+        this.props.history.push(`${this.props.match.params.wordListId}/train`);
     }
 
     onNewWord(e) {
@@ -59,11 +68,14 @@ class WordListPage extends React.Component {
     render() {
 
         return (
-            <form className='WordListPage' onSubmit={this.onNewWord}>
+            
+          
+            <div className='WordListPage'>
                 <div className='word-list-info'>
                     <h1 className='word-list-info__header'>{this.props.user.wordLists[this.props.match.params.wordListId].name}</h1>
                 </div>
-                <div className='WordListPage__word-list'>
+                <Button type='button' text='TRAIN' className='train-start' onClick={this.onTrain}/>
+                <form className='WordListPage__word-list'  onSubmit={this.onNewWord}>
                     <div className='translator'>
                         <input className='translator__input' 
                             placeholder='Type new english word'
@@ -94,8 +106,8 @@ class WordListPage extends React.Component {
                                 </div>
                             )
                     }
-                </div>
-            </form>
+                </form>
+            </div>
         )
     }
    

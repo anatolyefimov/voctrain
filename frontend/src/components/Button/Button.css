@@ -1,0 +1,15 @@
+.Button {
+    background-color: #1b78d0;
+    border-radius: 5px;
+    color: white;
+    margin-top: 25px;
+    font-size: 20px;
+    padding: 15px;
+    width: 350px;
+    box-sizing: content-box;
+    margin-bottom: 20px;
+}
+
+.Button:active {
+    background-color: rgb(189, 189, 189);
+}
